@@ -12,7 +12,7 @@ class Backer
     end
 
     def backed_projects
-        binding.pry
+        # binding.pry
        projects = [ ]
         ProjectBacker.all.map do |project_backer|
             if self ==  project_backer.backer
