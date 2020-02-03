@@ -1,30 +1,21 @@
+require "pry"
+
 class Project
+  attr_reader :title
 
-    attr_reader :title
+  def initialize(title)
+    @title = title
+  end
 
-    def initialize(title)
-        @title = title 
-    end 
+  def add_backer(backer)
+    ProjectBacker.new(self, backer)
+  end
 
-    def add_backer(backer)
-        ProjectBacker.new(self, backer)
-        #self #to call current backer
-    end 
+  def helper
+    ProjectBacker.all.select { |backer| backer.project == self }
+  end
 
-
-    def backers
-        find_project_backer.map do |project_backer| 
-            project_backer.backer
-        end 
-    
-
-        # binding.pry
-    end 
-
-    def find_project_backer 
-        #binding.pry
-        ProjectBacker.all.find_all do |project_backer| 
-            self == project_backer.project
-        end  
-    end 
-end 
+  def backers
+    helper.map { |backer| backer.backer }
+  end
+end
